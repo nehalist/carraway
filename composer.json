@@ -6,6 +6,7 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "guzzlehttp/guzzle": "^6.3",
+        "nelmio/cors-bundle": "^1.5",
         "sensio/framework-extra-bundle": "^5.3",
         "sensiolabs/security-checker": "^5.0",
         "symfony/apache-pack": "^1.0",
@@ -71,6 +72,8 @@
         }
     },
     "require-dev": {
+        "symfony/browser-kit": "4.2.*",
+        "symfony/css-selector": "4.2.*",
         "symfony/maker-bundle": "^1.11",
         "symfony/phpunit-bridge": "4.2.*"
     }

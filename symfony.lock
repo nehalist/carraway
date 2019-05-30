@@ -96,6 +96,18 @@
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },
+    "nelmio/cors-bundle": {
+        "version": "1.5",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "1.5",
+            "ref": "f0436fc35fca88eada758311f8de43bfb61f1980"
+        },
+        "files": [
+            "config/packages/nelmio_cors.yaml"
+        ]
+    },
     "nikic/php-parser": {
         "version": "v4.2.2"
     },
@@ -165,6 +177,9 @@
     "symfony/asset": {
         "version": "v4.2.9"
     },
+    "symfony/browser-kit": {
+        "version": "v4.2.9"
+    },
     "symfony/cache": {
         "version": "v4.2.9"
     },
@@ -187,6 +202,9 @@
     "symfony/contracts": {
         "version": "v1.1.1"
     },
+    "symfony/css-selector": {
+        "version": "v4.2.9"
+    },
     "symfony/debug": {
         "version": "v4.2.9"
     },
@@ -194,6 +212,9 @@
         "version": "v4.2.9"
     },
     "symfony/doctrine-bridge": {
+        "version": "v4.2.9"
+    },
+    "symfony/dom-crawler": {
         "version": "v4.2.9"
     },
     "symfony/dotenv": {
