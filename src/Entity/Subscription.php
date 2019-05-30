@@ -7,9 +7,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\ContactRequestRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\SubscriptionRepository")
  */
-class ContactRequest
+class Subscription
 {
     /**
      * @ORM\Id()
@@ -19,27 +19,15 @@ class ContactRequest
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      * @Assert\Email
      */
     private $mail;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $subject;
-
-    /**
-     * @ORM\Column(type="text")
-     * @Assert\NotBlank
-     */
-    private $message;
 
     /**
      * @ORM\Column(type="datetime")
@@ -62,7 +50,7 @@ class ContactRequest
         return $this->name;
     }
 
-    public function setName(string $name): self
+    public function setName(?string $name): self
     {
         $this->name = $name;
 
@@ -79,38 +67,6 @@ class ContactRequest
         $this->mail = $mail;
 
         return $this;
-    }
-
-    public function getSubject(): ?string
-    {
-        return $this->subject;
-    }
-
-    public function setSubject(?string $subject): self
-    {
-        $this->subject = $subject;
-
-        return $this;
-    }
-
-    public function getMessage(): ?string
-    {
-        return $this->message;
-    }
-
-    public function setMessage(string $message): self
-    {
-        $this->message = $message;
-
-        return $this;
-    }
-
-    public function getExcerpt(): ?string
-    {
-        if (strlen($this->message) < 150) {
-            return $this->message;
-        }
-        return substr($this->message, 0, 150) . '...';
     }
 
     public function getCreatedAt(): ?DateTimeInterface
@@ -140,10 +96,8 @@ class ContactRequest
     public function toArray(): array
     {
         return [
-            'name'    => $this->getName(),
-            'mail'    => $this->getMessage(),
-            'subject' => $this->getSubject(),
-            'message' => $this->getMessage(),
+            'name' => $this->name,
+            'mail' => $this->mail
         ];
     }
 }

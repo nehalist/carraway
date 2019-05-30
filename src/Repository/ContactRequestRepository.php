@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\ContactRequest;
+use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -19,32 +20,17 @@ class ContactRequestRepository extends ServiceEntityRepository
         parent::__construct($registry, ContactRequest::class);
     }
 
-    // /**
-    //  * @return ContactRequest[] Returns an array of ContactRequest objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function countByIpForDate(string $ip, DateTime $date)
     {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        return (int)$this->createQueryBuilder('cr')
+                         ->select('COUNT(cr.id)')
+                         ->andWhere('cr.ip = :ip')
+                         ->andWhere('cr.createdAt > :date')
+                         ->setParameters([
+                             'ip'    => $ip,
+                             'date'  => $date->format('Y-m-d')
+                         ])
+                         ->getQuery()
+                         ->getSingleScalarResult();
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?ContactRequest
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

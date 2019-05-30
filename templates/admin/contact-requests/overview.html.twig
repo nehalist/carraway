@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-{{ label }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+    <table class="table table-hover table-striped table-bordered">
+        <thead>
+        <tr>
+            <th style="width: 70%;">Message</th>
+            <th style="width: 30%;">Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for contactRequest in contactRequests %}
+            <tr>
+                <td>
+                    <a href="{{ url('contactRequestDetails', { contactRequest: contactRequest.id }) }}">{{ contactRequest.mail }} ({{ contactRequest.name }})</a>
+                    <small class="d-block">{{ contactRequest.excerpt }}</small>
+                </td>
+                <td>{{ contactRequest.createdAt|date }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

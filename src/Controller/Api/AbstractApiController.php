@@ -24,8 +24,4 @@ abstract class AbstractApiController extends AbstractController
 
         return new JsonResponse(['errors' => $errors], Response::HTTP_BAD_REQUEST);
     }
-
-    protected function getPayload()
-    {
-    }
 }

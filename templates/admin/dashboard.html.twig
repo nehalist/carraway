@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-8">
+            <h3>Recent notifications</h3>
+
+            {% for notification in notifications %}
+                <div class="alert alert-{{ notification.type }}">
+                    <small class="float-right">{{ notification.createdAt|date }}</small>
+                    <strong class="d-block">{{ notification.title }}</strong>
+                    {{ notification.message }}
+                </div>
+            {% else %}
+                <div class="text-center text-muted">
+                    Nothing so far...
+                </div>
+            {% endfor %}
+        </div>
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    Configuration
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        Mailchimp Integration: {{ mailchimpEnabled ? '<strong>enabled</strong>' : 'disabled' }}
+                    </li>
+                    <li class="list-group-item">
+                        Save contact requests: {{ saveContactRequests ? '<strong>enabled</strong>' : 'disabled' }}
+                    </li>
+                    <li class="list-group-item">
+                        Daily contact requests limit: <strong>{{ dailyCRLimit }}</strong>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}

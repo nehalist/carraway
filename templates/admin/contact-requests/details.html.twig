@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <a href="{{ url('contactRequestsOverview') }}">&laquo; Back to overview</a>
+
+    <div class="card">
+        <div class="card-header text-right">
+            <a href="{{ url('contactRequestDelete', {contactRequest: contactRequest.id}) }}"
+               onclick="return confirm('Are you sure?');"
+               class="btn btn-danger btn-sm">Delete</a>
+        </div>
+        <div class="card-body">
+            <h5>From</h5>
+            {{ contactRequest.mail }} ({{ contactRequest.name }}) - {{ contactRequest.ip }}
+
+            <hr/>
+
+            <h5>Date</h5>
+            {{ contactRequest.createdAt|date }}
+
+            <hr/>
+
+            <h5>Subject</h5>
+            {{ contactRequest.subject }}
+
+            <hr/>
+
+            <h5>Message</h5>
+
+            {{ contactRequest.message }}
+        </div>
+    </div>
+{% endblock %}

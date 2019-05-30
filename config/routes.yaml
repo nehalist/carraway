@@ -1,3 +1,11 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+
+api:
+  prefix: /api
+  resource: '../src/Controller/Api'
+
+admin:
+  prefix: /admin
+  resource: '../src/Controller/Admin'

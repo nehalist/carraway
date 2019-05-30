@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-{{ label }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+    <table class="table table-hover table-striped table-bordered">
+        <thead>
+        <tr>
+            <th style="width: 90%;">Subscriber</th>
+            <th style="width: 10%;"></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for subscriber in subscriptions %}
+            <tr>
+                <td>
+                    {{ subscriber.mail }} ({{ subscriber.name }})
+                    <small class="d-block">{{ subscriber.createdAt|date }}</small>
+                </td>
+                <td><a href="{{ url('subscriptionDelete', {subscription: subscriber.id}) }}"
+                       onclick="return confirm('Are you sure?');" class="btn btn-sm btn-danger">Delete</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
