@@ -24,6 +24,8 @@ before_install:
 install:
   - composer install
   - ./bin/phpunit install
+  - ./bin/console doctrine:database:create --env=test
+  - ./bin/console doctrine:migrations:migrate --env=test
 
 script:
   - ./bin/phpunit
