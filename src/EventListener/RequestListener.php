@@ -31,8 +31,6 @@ class RequestListener
         $contactRequestsByIp = $this->em->getRepository(ContactRequest::class)
                                         ->countByIpForDate($clientIp, new DateTime());
 
-        var_dump($contactRequestsByIp);
-
         if ($contactRequestsByIp > $limit) {
             $event->setResponse(new JsonResponse([
                 'error' => 'Max requests per day exceeded',
