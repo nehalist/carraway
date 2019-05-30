@@ -5,13 +5,13 @@ namespace App\Controller\Api;
 use App\Entity\Subscription;
 use App\Event\SubscriptionCreatedEvent;
 use App\Events;
+use App\Response\ErrorResponse;
 use App\Utils\Notificator;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Validation;
@@ -51,7 +51,7 @@ class SubscriptionController extends AbstractApiController
         $mail = $payload['mail'];
 
         if ($em->getRepository(Subscription::class)->findBy(['mail' => $mail])) {
-            return $this->json(['error' => 'Already subscribed'], Response::HTTP_BAD_REQUEST);
+            return new ErrorResponse('Email already subscribed');
         }
 
         $subscription = new Subscription();
