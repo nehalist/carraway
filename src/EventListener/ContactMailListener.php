@@ -3,6 +3,8 @@
 namespace App\EventListener;
 
 use App\Event\ContactRequestEvent;
+use App\Utils\Notificator;
+use Exception;
 use Swift_Mailer;
 use Swift_Message;
 
@@ -10,9 +12,12 @@ class ContactMailListener
 {
     protected $mailer;
 
-    public function __construct(Swift_Mailer $mailer)
+    protected $notificator;
+
+    public function __construct(Swift_Mailer $mailer, Notificator $notificator)
     {
-        $this->mailer = $mailer;
+        $this->mailer      = $mailer;
+        $this->notificator = $notificator;
     }
 
     public function onContactRequest(ContactRequestEvent $event)
@@ -30,9 +35,12 @@ class ContactMailListener
             ->setFrom($from)
             ->setTo($to)
             ->setSubject($contactRequest->getSubject())
-            ->setBody($contactRequest->getMessage())
-        ;
+            ->setBody($contactRequest->getMessage());
 
-        $this->mailer->send($message);
+        try {
+            $this->mailer->send($message);
+        } catch (Exception $exception) {
+            $this->notificator->error('Failed to send mail', $exception->getMessage());
+        }
     }
 }
