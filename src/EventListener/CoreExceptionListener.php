@@ -18,7 +18,7 @@ class CoreExceptionListener
 
         $controller = $event->getRequest()->attributes->get('_controller');
         if (strstr($controller, 'Controller\Api') > -1) {
-            if (in_array($env, ['dev', 'test', 'testing'])) {
+            if (in_array($env, ['dev', 'development'])) {
                 return $event->setResponse(new ErrorResponse([
                     get_class($exception) . ': ' . $exception->getMessage()
                 ]));
