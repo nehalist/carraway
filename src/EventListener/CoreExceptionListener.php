@@ -2,8 +2,7 @@
 
 namespace App\EventListener;
 
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
+use App\Response\ErrorResponse;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 
 class CoreExceptionListener
@@ -11,13 +10,23 @@ class CoreExceptionListener
     public function onCoreException(GetResponseForExceptionEvent $event)
     {
         $exception = $event->getException();
+        $env       = getenv('APP_ENV');
+
+        if (! $env) {
+            $env = 'prod';
+        }
 
         $controller = $event->getRequest()->attributes->get('_controller');
         if (strstr($controller, 'Controller\Api') > -1) {
-            $event->setResponse(new JsonResponse([
-                'error'   => get_class($exception),
-                'message' => $exception->getMessage(),
-            ], Response::HTTP_BAD_REQUEST));
+            if (in_array($env, ['dev', 'test', 'testing'])) {
+                return $event->setResponse(new ErrorResponse([
+                    get_class($exception) . ': ' . $exception->getMessage()
+                ]));
+            }
+
+            return $event->setResponse(new ErrorResponse('System Error'));
         }
+
+        return null;
     }
 }
