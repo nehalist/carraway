@@ -141,7 +141,7 @@ class ContactRequest
     {
         return [
             'name'    => $this->getName(),
-            'mail'    => $this->getMessage(),
+            'mail'    => $this->getMail(),
             'subject' => $this->getSubject(),
             'message' => $this->getMessage(),
         ];
