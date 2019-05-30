@@ -34,22 +34,24 @@ class ContactController extends AbstractApiController
         EntityManagerInterface $em,
         Notificator $notificator
     ) {
+        $payload     = $this->getPayload();
         $validator   = Validation::createValidator();
         $constraints = new Assert\Collection([
             'name'    => new Assert\NotBlank(),
             'mail'    => new Assert\Email(),
+            'subject' => new Assert\Optional(),
             'message' => new Assert\NotBlank(),
         ]);
 
-        $violations = $validator->validate($request->request->all(), $constraints);
+        $violations = $validator->validate($payload, $constraints);
         if ($violations->count() > 0) {
             return $this->error($violations);
         }
 
-        $name    = $request->get('name');
-        $mail    = $request->get('mail');
-        $subject = $request->get('subject', 'Contact Form Submission');
-        $message = $request->get('message');
+        $name    = $payload['name'];
+        $mail    = $payload['mail'];
+        $subject = isset($payload['subject']) ? $payload['subject'] : 'Contact Request';
+        $message = $payload['message'];
 
         $contactRequest = new ContactRequest();
         $contactRequest->setName($name);

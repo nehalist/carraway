@@ -35,19 +35,20 @@ class SubscriptionController extends AbstractApiController
         EntityManagerInterface $em,
         Notificator $notificator
     ) {
+        $payload     = $this->getPayload();
         $validator   = Validation::createValidator();
         $constraints = new Assert\Collection([
             'name' => new Assert\Optional(),
             'mail' => new Assert\Email(),
         ]);
 
-        $violations = $validator->validate($request->request->all(), $constraints);
+        $violations = $validator->validate($payload, $constraints);
         if ($violations->count() > 0) {
             return $this->error($violations);
         }
 
-        $name = $request->request->get('name');
-        $mail = $request->request->get('mail');
+        $name = isset($payload['name']) ? $payload['name'] : '';
+        $mail = $payload['mail'];
 
         if ($em->getRepository(Subscription::class)->findBy(['mail' => $mail])) {
             return $this->json(['error' => 'Already subscribed'], Response::HTTP_BAD_REQUEST);
