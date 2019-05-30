@@ -7,6 +7,7 @@
         "ext-iconv": "*",
         "guzzlehttp/guzzle": "^6.3",
         "sensio/framework-extra-bundle": "^5.3",
+        "sensiolabs/security-checker": "^5.0",
         "symfony/apache-pack": "^1.0",
         "symfony/asset": "4.2.*",
         "symfony/console": "4.2.*",
@@ -50,7 +51,8 @@
     "scripts": {
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
-            "assets:install %PUBLIC_DIR%": "symfony-cmd"
+            "assets:install %PUBLIC_DIR%": "symfony-cmd",
+            "security-checker security:check": "script"
         },
         "post-install-cmd": [
             "@auto-scripts"
