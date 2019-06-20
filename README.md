@@ -5,8 +5,6 @@
 A static-site helper which provides an API for contact form submissions and 
 subscriptions. 
 
-- [Demo](https://carraway.nehalist.io/admin) (demo/demo)
-
 ![Carraway](carraway.png)
 
 ### But why?
