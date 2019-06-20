@@ -33,7 +33,7 @@ class ContactMailListener
 
         $message = (new Swift_Message())
             ->setFrom($from)
-            ->setReplyTo($contactRequest->getMail())
+            ->setReplyTo($contactRequest->getMail(), $contactRequest->getName())
             ->setTo($to)
             ->setSubject($contactRequest->getSubject())
             ->setBody($contactRequest->getMessage());
