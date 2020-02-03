@@ -1,29 +1,31 @@
 # Carraway
 
+> **No longer maintained**.
+
 [![Build Status](https://travis-ci.org/nehalist/carraway.svg?branch=master)](https://travis-ci.org/nehalist/carraway)
 
-A static-site helper which provides an API for contact form submissions and 
-subscriptions. 
+A static-site helper which provides an API for contact form submissions and
+subscriptions.
 
 ![Carraway](carraway.png)
 
 ### But why?
 
 Static sites (e.g. Gatsby or Jekyll) are awesome - but there are limitations.
-Having a contact form or managing subscriptions is part of these limitations - 
+Having a contact form or managing subscriptions is part of these limitations -
 without a proper API you can't just have these things.
 
-There are solutions out there for contact form submissions and there are 
-solutions out there for subscription management. I don't like to have many 
-different services to maintain [one single blog](https://nehalist.io). It's just 
+There are solutions out there for contact form submissions and there are
+solutions out there for subscription management. I don't like to have many
+different services to maintain [one single blog](https://nehalist.io). It's just
 a blog.
 
-Most of them either cost way too much for smaller projects (like a blog) or 
+Most of them either cost way too much for smaller projects (like a blog) or
 aren't working properly.
 
 Additionally relying on third party services always mean giving data away.
 
-Or maybe I'm just really bad at using Google and had 
+Or maybe I'm just really bad at using Google and had
 too much time on my day off.
 
 ## Features
@@ -40,16 +42,16 @@ too much time on my day off.
 
 ## Installation
 
-> For webserver configuration of Symfony applications see the official 
+> For webserver configuration of Symfony applications see the official
   [Configuring a Web Server](https://symfony.com/doc/current/setup/web_server_configuration.html) guide.
 
 1. Clone the repository `git clone https://github.com/nehalist/carraway.git`
-2. `cd` into the repo directory 
+2. `cd` into the repo directory
 3. Install dependencies with `composer install --no-dev --optimize-autoloader`
 4. Create the database with `bin/console doctrine:database:create`
 5. Execute migrations with `bin/console doctrine:migrations:migrate`
 6. Create a user with `bin/console app:create-user <name> <password>`
-7. Copy and rename your `.env` file to `.env.local` and adjust its values 
+7. Copy and rename your `.env` file to `.env.local` and adjust its values
 (see below for dotenv file details)
 8. Clear your cache with `APP_ENV=prod APP_DEBUG=0 php bin/console cache:clear`
 
@@ -62,7 +64,7 @@ submissions and one for subscriptions.
 
 ### Contact Form Submission
 
-Creates (and optionally saves, depending on `SAVE_CONTACT_REQUESTS` in your 
+Creates (and optionally saves, depending on `SAVE_CONTACT_REQUESTS` in your
 dotenv configuration) contact requests.
 
 ```
@@ -105,7 +107,7 @@ Response
 
 ### Errors
 
-Errors do have proper status codes (4xx). API errors always are JSON formatted 
+Errors do have proper status codes (4xx). API errors always are JSON formatted
 with an array of all errors, e.g.:
 
 ```json
@@ -116,8 +118,8 @@ with an array of all errors, e.g.:
 }
 ```
 
-System errors (5xx) are also formatted the same way. Their content depend on the 
-environment; while in `dev` proper exception messages are returned errors in 
+System errors (5xx) are also formatted the same way. Their content depend on the
+environment; while in `dev` proper exception messages are returned errors in
 `prod` only return
 
 ```json
@@ -167,5 +169,5 @@ copy from it (`.env.local`) and change this file!
 
 ## Author & License
 
-Created by [nehalist.io](https://nehalist.io) - Released under 
+Created by [nehalist.io](https://nehalist.io) - Released under
 the [MIT license](LICENSE).
